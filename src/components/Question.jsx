@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
  
-const Question = () => {
+const Question = ({ saveBudget }) => {
 
     const [ quantity, setQuantity ] = useState(0);
     const [ error, setError ] = useState(false);
@@ -11,10 +11,11 @@ const Question = () => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        if(quantity < 1 || isNaN(quantity)){
+        if(quantity < 1 || isNaN(quantity))
             setError(true);
-        }else{
-            setError(false);
+        else{
+            setError(false)
+            saveBudget(quantity);
         }
     }
 
