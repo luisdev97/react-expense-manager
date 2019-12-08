@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import Error from './Error';
  
-const Question = ({ saveBudget }) => {
+const Question = ({ setBudget, questionAnswered }) => {
 
     const [ quantity, setQuantity ] = useState(0);
     const [ error, setError ] = useState(false);
@@ -15,7 +16,8 @@ const Question = ({ saveBudget }) => {
             setError(true);
         else{
             setError(false)
-            saveBudget(quantity);
+            setBudget(quantity);
+            questionAnswered(true);
         }
     }
 
@@ -23,7 +25,7 @@ const Question = ({ saveBudget }) => {
         <>
             <h2>Budget</h2>
 
-            { error && <p className="alert alert-danger error">The budget is incorrect</p> }
+            { error && <Error messagge="The budget is incorrect"/> }
 
             <form onSubmit={ handleSubmit }>
                 <input type="number"
