@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Question from './components/Question';
 import Form from './components/Form';
 import ExpendituresList from './components/ExpendituresList';
+import Budget from './components/Budget';
 
 function App() {
 
   const [ expenditures, updateExpendituresList ] = useState([]);
   const [ expenditure, setExpenditure ] = useState({});
   const [ addExpenditure, setAddExpenditure ] = useState(false);
+  const [ leftover, setLeftover ] = useState(0);
   const [ budget, setBudget ] = useState(0);
   const [ answer, questionAnswered ] = useState(false);
   
@@ -34,7 +36,7 @@ function App() {
 
                 <Form setExpenditure={ setExpenditure } setAddExpenditure={ setAddExpenditure }/>
 
-                <ExpendituresList expenditures={ expenditures }/>
+                <ExpendituresList expenditures={ expenditures } budget={ budget } leftover={leftover}/>
 
             </div> 
           }
