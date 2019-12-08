@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import Error from './Error';
+import shortid from 'shortid';
  
 const initialState = {
     name: '',
     cost: '',
-    error: false
 }
 
-const Form = () => {
+const Form = ({ setExpenditure, setAddExpenditure }) => {
 
     const [ expenditure, setExpenditureValues ] = useState(initialState);
+    const [ error, setError ] = useState(false);
 
     const handleChange = e => {
         setExpenditureValues({
@@ -23,15 +24,16 @@ const Form = () => {
         e.preventDefault();
 
         if(cost < 1 || isNaN(cost) || name === ''  )
-            setExpenditureValues({
-                ...expenditure,
-                error: true
-            });
+           setError(true);
         else{
             setExpenditureValues({
                 ...expenditure,
-                error: false
+                id: shortid.generate()
             });
+            setError(false);
+            setExpenditure(expenditure);
+            setAddExpenditure(true);
+            setExpenditureValues(initialState);
         }
         
     }
@@ -43,13 +45,14 @@ const Form = () => {
 
                 <h2>Add your expenditure</h2>
 
-                { expenditure.error && <Error messagge="All fields are required"/>}
+                { error && <Error messagge="All fields are required"/>}
                 <div className="campo">
                     <label>Expenditure name</label>
                     <input type="text" 
                     className="u-full-width"
                     name="name"
                     onChange={ handleChange }
+                    value={ expenditure.name }
                     placeholder="Ej. shopping"/>
                 </div>
 
@@ -59,6 +62,7 @@ const Form = () => {
                     className="u-full-width"
                     name="cost"
                     onChange={ handleChange }
+                    value={ expenditure.cost }
                     placeholder="Ej. 300"/>
                 </div>
 

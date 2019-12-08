@@ -1,13 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Question from './components/Question';
 import Form from './components/Form';
+import ExpendituresList from './components/ExpendituresList';
 
 function App() {
 
-  //const [ expenditures, updateExpendituresList ] = ([]);
+  const [ expenditures, updateExpendituresList ] = useState([]);
+  const [ expenditure, setExpenditure ] = useState({});
+  const [ addExpenditure, setAddExpenditure ] = useState(false);
   const [ budget, setBudget ] = useState(0);
   const [ answer, questionAnswered ] = useState(false);
+  
+  useEffect(() => {
+    if(addExpenditure){
+      const list = [...expenditures, expenditure];
+      updateExpendituresList(list);
+
+      setAddExpenditure(false);
+    }
     
+
+  },[addExpenditure]);
+
   return (
     <div className="App container">
       <header>
@@ -18,11 +32,9 @@ function App() {
             ? <Question setBudget={ setBudget } questionAnswered={ questionAnswered }/>
             : <div className="row">
 
-                <Form/>
+                <Form setExpenditure={ setExpenditure } setAddExpenditure={ setAddExpenditure }/>
 
-                <div className="one-half column">
-                  <p>Form</p>
-                </div>
+                <ExpendituresList expenditures={ expenditures }/>
 
             </div> 
           }
