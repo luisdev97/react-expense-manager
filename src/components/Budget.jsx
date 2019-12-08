@@ -1,4 +1,5 @@
 import React from 'react';
+import { revisarPresupuesto } from '../helpers';
 
 const Budget = ({ budget, leftover }) => {
     return (
@@ -6,7 +7,7 @@ const Budget = ({ budget, leftover }) => {
             <div className="alert alert-primary">
                 Budget: { budget }
             </div>
-            <div className="">
+            <div className={ revisarPresupuesto(budget, leftover) }>
                 Leftover: { leftover }
             </div>
         </>

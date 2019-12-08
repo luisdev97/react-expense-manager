@@ -2,7 +2,8 @@ import React from 'react';
 import Expenditure from './Expenditure';
 import Budget from './Budget';
 
-const ExpendituresList = ({ expenditures, budget, leftover }) => {
+const ExpendituresList = ({ expenditures, budget }) => {
+    const { total , leftover } = budget;
 
     const renderExpenditures = expenditures => expenditures.map(expenditure => <Expenditure key={ expenditure.id } expenditure={ expenditure }/>);
     
@@ -13,7 +14,7 @@ const ExpendituresList = ({ expenditures, budget, leftover }) => {
                 { renderExpenditures(expenditures) }
             </div>
 
-            <Budget budget={ budget } leftover={leftover}/>
+            <Budget budget={ total } leftover={ leftover }/>
         </div>
     );
 };

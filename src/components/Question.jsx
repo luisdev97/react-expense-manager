@@ -16,7 +16,10 @@ const Question = ({ setBudget, questionAnswered }) => {
             setError(true);
         else{
             setError(false)
-            setBudget(quantity);
+            setBudget({
+                total: quantity,
+                leftover: quantity
+            });
             questionAnswered(true);
         }
     }

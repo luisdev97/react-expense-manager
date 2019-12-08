@@ -9,20 +9,22 @@ function App() {
   const [ expenditures, updateExpendituresList ] = useState([]);
   const [ expenditure, setExpenditure ] = useState({});
   const [ addExpenditure, setAddExpenditure ] = useState(false);
-  const [ leftover, setLeftover ] = useState(0);
-  const [ budget, setBudget ] = useState(0);
+  const [ budget, setBudget ] = useState({});
   const [ answer, questionAnswered ] = useState(false);
   
   useEffect(() => {
+
     if(addExpenditure){
       const list = [...expenditures, expenditure];
       updateExpendituresList(list);
 
+      const leftover = budget.leftover - expenditure.cost;
+      setBudget({...budget, leftover });
       setAddExpenditure(false);
     }
-    
 
   },[addExpenditure]);
+
 
   return (
     <div className="App container">
@@ -34,9 +36,9 @@ function App() {
             ? <Question setBudget={ setBudget } questionAnswered={ questionAnswered }/>
             : <div className="row">
 
-                <Form setExpenditure={ setExpenditure } setAddExpenditure={ setAddExpenditure }/>
+                <Form setExpenditure={ setExpenditure } setAddExpenditure={ setAddExpenditure } setBudget={ setBudget }/>
 
-                <ExpendituresList expenditures={ expenditures } budget={ budget } leftover={leftover}/>
+                <ExpendituresList expenditures={ expenditures } budget={ budget }/>
 
             </div> 
           }
