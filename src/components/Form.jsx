@@ -7,10 +7,13 @@ const initialState = {
     cost: '',
 }
 
-const Form = ({ setExpenditure, setAddExpenditure }) => {
+const Form = ({ setExpenditure, setAddExpenditure, leftover }) => {
 
     const [ expenditure, setExpenditureValues ] = useState(initialState);
-    const [ error, setError ] = useState(false);
+    const [ error, setError ] = useState({
+        ok: false,
+        messagge: ''
+    });
 
     const handleChange = e => {
         setExpenditureValues({
@@ -24,7 +27,9 @@ const Form = ({ setExpenditure, setAddExpenditure }) => {
         e.preventDefault();
 
         if(cost < 1 || isNaN(cost) || name === ''  )
-           setError(true);
+           setError({ ok: true, messagge: 'All fields are required' });
+        else if(cost > leftover)
+            setError({ ok: true, messagge: "you can't exceed your budget" });
         else{
             setExpenditureValues({
                 ...expenditure,
@@ -45,7 +50,7 @@ const Form = ({ setExpenditure, setAddExpenditure }) => {
 
                 <h2>Add your expenditure</h2>
 
-                { error && <Error messagge="All fields are required"/>}
+                { error.ok && <Error messagge={ error.messagge }/>}
                 <div className="campo">
                     <label>Expenditure name</label>
                     <input type="text" 

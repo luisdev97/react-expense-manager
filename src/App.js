@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Question from './components/Question';
 import Form from './components/Form';
 import ExpendituresList from './components/ExpendituresList';
-import Budget from './components/Budget';
 
 function App() {
 
@@ -23,7 +22,7 @@ function App() {
       setAddExpenditure(false);
     }
 
-  },[addExpenditure]);
+  },[addExpenditure, expenditure, expenditures, budget]);
 
 
   return (
@@ -36,7 +35,7 @@ function App() {
             ? <Question setBudget={ setBudget } questionAnswered={ questionAnswered }/>
             : <div className="row">
 
-                <Form setExpenditure={ setExpenditure } setAddExpenditure={ setAddExpenditure } setBudget={ setBudget }/>
+                <Form setExpenditure={ setExpenditure } setAddExpenditure={ setAddExpenditure } setBudget={ setBudget } leftover={ budget.leftover }/>
 
                 <ExpendituresList expenditures={ expenditures } budget={ budget }/>
 
